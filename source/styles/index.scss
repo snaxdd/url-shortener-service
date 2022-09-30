@@ -1,0 +1,13 @@
+// General
+@import 'reset';
+@import 'fonts';
+@import 'mixins';
+
+// Components
+@import '../components/Header';
+@import '../components/LinkView';
+
+
+main {
+  padding: 20px;
+}

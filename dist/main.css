@@ -1,0 +1,48 @@
+/*!*******************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./source/styles/index.scss ***!
+  \*******************************************************************************************************************/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Ubuntu-Regular", sans-serif;
+}
+
+@font-face {
+  font-family: "Ubuntu-Bold";
+  src: url(fec2d0f1431a6114a6ce.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Italic";
+  src: url(fbb3310412795b02afc4.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Light";
+  src: url(0dd2d5986e2731a16ee7.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Medium";
+  src: url(e37c5546eb1a6efc4818.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Ubuntu-Regular";
+  src: url(1cbb1b79a23478cc89ad.ttf) format("truetype");
+}
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  background-color: #151515;
+  height: 80px;
+  padding: 20px;
+  color: white;
+}
+
+.logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 200px;
+  height: 100%;
+}

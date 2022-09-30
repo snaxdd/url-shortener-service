@@ -1,0 +1,12 @@
+.header {
+  @include flex(flex-start);
+  position: relative;
+  background-color: #151515;
+  height: 80px;
+  padding: 20px;
+  color: white;
+
+  &_text {
+    font-size: 22px;
+  }
+}

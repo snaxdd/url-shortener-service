@@ -1,0 +1,40 @@
+.link-view {
+  @include flex(space-between);
+  overflow: hidden;
+  border-radius: 8px;
+  border: 2px solid #c5b9cb;
+  padding: 16px 8px;
+  max-height: 54px;
+  background-color: #f3f0f5;
+  margin-bottom: 12px;
+
+  &_index {
+    @include flex;
+    @include max-width-100(36px);
+    min-width: 36px;
+    height: 36px;
+    margin-right: 12px;
+  }
+
+  &_url,
+  &_short-url {
+    margin-right: 12px;
+  }
+
+  &_transitions {
+    background-color: #525252;
+    color: white;
+    overflow: hidden;
+    max-width: 75px;
+    padding: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    height: 36px;
+    border-radius: 8px;
+  }
+
+  &--even {
+    border: none;
+    background-color: transparent;
+  }
+}

@@ -1,0 +1,44 @@
+.pagination {
+  @include flex(flex-start);
+  border: 1px solid red;
+  padding: 10px;
+
+  &_button {
+    overflow: hidden;
+    border: 2px solid #c9c9c9;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    width: 36px;
+    height: 36px;
+    padding: 4px;
+    margin-right: 8px;
+    transition: border-color 0.3s ease;
+
+    &-number {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    &:hover {
+      border-color: #9fbdf6;
+    }
+
+    &--active {
+      border-color: cornflowerblue;
+    }
+
+    &--last {
+      margin-right: 0;
+    }
+  }
+
+  &_spacer {
+    @include flex;
+    width: 36px;
+    height: 36px;
+    margin-right: 8px;
+  }
+}

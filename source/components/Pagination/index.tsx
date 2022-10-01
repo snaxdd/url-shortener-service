@@ -54,31 +54,43 @@ const Pagination = (props: IPaginationProps) => {
             data-first={!i}
             onClick={onClick}
             className={`pagination_button ${
-              currentIndex === i + 1 ? " pagination_button--active" : ""
+              currentIndex === buttonCounter + value
+                ? " pagination_button--active"
+                : ""
             }`}
           >
-            {value + buttonCounter}
+            <span className="pagination_button-number">
+              {value + buttonCounter}
+            </span>
           </button>
         );
       })}
       {currentIndex >= props.totalPages - SHOW_BUTTONS ? (
         <button
-          className="pagination_button"
+          className={`pagination_button ${
+            currentIndex === props.totalPages - 1
+              ? " pagination_button--active"
+              : ""
+          }`}
           data-index={props.totalPages - 1}
           onClick={onClick}
         >
-          {props.totalPages - 1}
+          <span className="pagination_button-number">
+            {props.totalPages - 1}
+          </span>
         </button>
       ) : (
         <span className="pagination_spacer">...</span>
       )}
       <button
-        className="pagination_button"
+        className={`pagination_button pagination_button--last ${
+          currentIndex === props.totalPages ? " pagination_button--active" : ""
+        }`}
         data-index={props.totalPages}
         data-last-button={true}
         onClick={onClick}
       >
-        {props.totalPages}
+        <span className="pagination_button-number">{props.totalPages}</span>
       </button>
     </div>
   );

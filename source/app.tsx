@@ -11,7 +11,7 @@ const App = () => {
     <>
       <Header />
       <main>
-        <Pagination totalPages={10} onClick={onClick} />
+        <Pagination totalPages={100} onClick={onClick} />
       </main>
     </>
   );

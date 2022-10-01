@@ -11,12 +11,17 @@ const Pagination = (props: IPaginationProps) => {
   const [currentIndex, setCurrentIndex] = useState(1);
   const [buttonCounter, setButtonCounter] = useState(1);
 
+  const getValuesFromAttr = (event: MouseEvent<HTMLElement>) => ({
+    selectedIndex: Number(event.currentTarget.getAttribute("data-index")),
+    isLast: event.currentTarget.getAttribute("data-last") === "true",
+    isFirst: event.currentTarget.getAttribute("data-first") === "true",
+    isLastButton:
+      event.currentTarget.getAttribute("data-last-button") === "true",
+  });
+
   const onClick = (event: MouseEvent<HTMLElement>) => {
-    const selectedIndex = Number(
-      event.currentTarget.getAttribute("data-index")
-    );
-    const isLast = event.currentTarget.getAttribute("data-last") === "true";
-    const isFirst = event.currentTarget.getAttribute("data-first") === "true";
+    const { isFirst, isLast, isLastButton, selectedIndex } =
+      getValuesFromAttr(event);
 
     props.onClick(selectedIndex);
     setCurrentIndex(selectedIndex);
@@ -28,6 +33,10 @@ const Pagination = (props: IPaginationProps) => {
 
       if (isLast && !(currentIndex >= props.totalPages - SHOW_BUTTONS)) {
         return prevState + 1;
+      }
+
+      if (isLastButton) {
+        return props.totalPages - 4;
       }
 
       return prevState;
@@ -44,8 +53,8 @@ const Pagination = (props: IPaginationProps) => {
             data-last={i === arr.length - 1}
             data-first={!i}
             onClick={onClick}
-            className={`button ${
-              currentIndex === i + 1 ? " button--active" : ""
+            className={`pagination_button ${
+              currentIndex === i + 1 ? " pagination_button--active" : ""
             }`}
           >
             {value + buttonCounter}
@@ -53,13 +62,22 @@ const Pagination = (props: IPaginationProps) => {
         );
       })}
       {currentIndex >= props.totalPages - SHOW_BUTTONS ? (
-        <button data-index={props.totalPages - 1} onClick={onClick}>
+        <button
+          className="pagination_button"
+          data-index={props.totalPages - 1}
+          onClick={onClick}
+        >
           {props.totalPages - 1}
         </button>
       ) : (
-        <span>...</span>
+        <span className="pagination_spacer">...</span>
       )}
-      <button data-index={props.totalPages} onClick={onClick}>
+      <button
+        className="pagination_button"
+        data-index={props.totalPages}
+        data-last-button={true}
+        onClick={onClick}
+      >
         {props.totalPages}
       </button>
     </div>

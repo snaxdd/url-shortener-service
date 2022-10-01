@@ -1,13 +1,17 @@
 import React from "react";
 import Header from "./components/Header";
-import LinkForm from "./components/LinkForm";
+import Pagination from "./components/Pagination";
 
 const App = () => {
+  const onClick = (pageIndex: number) => {
+    console.log("page index: ", pageIndex);
+  };
+
   return (
     <>
       <Header />
       <main>
-        <LinkForm />
+        <Pagination totalPages={10} onClick={onClick} />
       </main>
     </>
   );

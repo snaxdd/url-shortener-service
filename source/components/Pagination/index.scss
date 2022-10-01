@@ -1,7 +1,5 @@
 .pagination {
   @include flex(flex-start);
-  border: 1px solid red;
-  padding: 10px;
 
   &_button {
     overflow: hidden;

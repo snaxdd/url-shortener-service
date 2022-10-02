@@ -1,0 +1,8 @@
+.layout {
+  @include flex(flex-start, flex-start);
+
+  &_left,
+  &_right {
+    flex: 1;
+  }
+}

@@ -1,3 +1,42 @@
 .link-form {
+  border-radius: 8px;
+  background-color: #ebebeb;
+  border: 2px solid #d0d0d0;
+  padding: 20px;
+  overflow: hidden;
 
+  &_title {
+    display: block;
+    margin-bottom: 18px;
+  }
+
+  &_input {
+    flex: 1;
+    margin-right: 8px;
+    padding: 8px;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+  }
+
+  &_input-wrapper {
+    @include flex(flex-start);
+    margin-bottom: 18px;
+  }
+
+  &_button {
+    cursor: pointer;
+    border: 1px solid #d0d0d0;
+    border-radius: 4px;
+    height: 35px;
+    padding: 0 8px;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #e5e5e5;
+    }
+  }
+
+  &_error {
+    color: red;
+  }
 }

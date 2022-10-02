@@ -8,6 +8,11 @@
 @import '../components/LinkView';
 @import '../components/LinkForm';
 @import '../components/Pagination';
+@import 'components/layout';
+
+body {
+  padding: 30px;
+}
 
 main {
   padding: 20px;

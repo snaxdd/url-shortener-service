@@ -11,12 +11,11 @@ interface IState {
   myLinks: ShortUrl[];
 }
 
-export const urlShortenerSlice = createSlice({
+export const urlSlice = createSlice({
   name: "url-shortener",
   initialState: {
     url: "",
     error: "",
-    currentPage: 1,
     totalPages: 1,
     isLoading: false,
     links: [],
@@ -32,24 +31,18 @@ export const urlShortenerSlice = createSlice({
     setTotalPages: (store, action: PayloadAction<number>) => {
       store.totalPages = action.payload;
     },
-    setCurrentPage: (store, action: PayloadAction<number>) => {
-      store.currentPage = action.payload;
-    },
     setIsLoading: (store, action: PayloadAction<boolean>) => {
       store.isLoading = action.payload;
     },
     setLinks: (store, action: PayloadAction<ShortUrl[]>) => {
       store.links = action.payload;
     },
+    setMyLink: (store, action: PayloadAction<ShortUrl>) => {
+      store.myLinks.push(action.payload);
+    },
   },
 });
 
-export const {
-  setUrl,
-  setError,
-  setCurrentPage,
-  setTotalPages,
-  setLinks,
-  setIsLoading,
-} = urlShortenerSlice.actions;
-export default urlShortenerSlice.reducer;
+export const { setUrl, setError, setTotalPages, setLinks, setMyLink } =
+  urlSlice.actions;
+export default urlSlice.reducer;

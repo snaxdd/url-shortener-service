@@ -1,4 +1,4 @@
-import React, { FormEvent, useCallback, useEffect } from "react";
+import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import Header from "./components/Header";
 import LinkForm from "./components/LinkForm";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
@@ -6,9 +6,8 @@ import {
   setError,
   setUrl,
   setLinks,
-  setCurrentPage,
   setTotalPages,
-} from "./store/features/urlShortener.slice";
+} from "./store/features/url.slice";
 import validator from "validator";
 import { useQuery } from "@apollo/client";
 import { GET_SHORT_URLS } from "./graphql/url.query";
@@ -18,20 +17,15 @@ import Pagination from "./components/Pagination";
 import Spinner from "./components/Spinner";
 
 const App = () => {
-  const urlShortener = useAppSelector((state) => state.counter);
+  const [page, setPage] = useState(1);
+  const urlState = useAppSelector((state) => state.url);
   const dispatch = useAppDispatch();
 
   const { loading, error, data } = useQuery(GET_SHORT_URLS, {
     variables: {
-      page: urlShortener.currentPage,
+      page,
     },
   });
-
-  // useEffect(() => {
-  //   window.onbeforeunload = function () {
-  //     sessionStorage.setItem("href", window.location.href);
-  //   };
-  // }, []);
 
   useEffect(() => {
     //dispatch(setError(error?.message));
@@ -58,7 +52,7 @@ const App = () => {
   }, []);
 
   const onPaginate = (currentPage: number) => {
-    dispatch(setCurrentPage(currentPage));
+    setPage(currentPage);
   };
 
   return (
@@ -67,15 +61,12 @@ const App = () => {
       <main className="layout">
         <div className="layout_left">
           <LinkForm
-            error={urlShortener.error}
+            error={urlState.error}
             onInput={onInput}
-            value={urlShortener.url}
+            value={urlState.url}
+            classNames="layout_link-form"
           />
-        </div>
-        <div className="layout_right">
-          <span className="layout_right-title">Список ссылок</span>
-          {loading && <Spinner size="small" />}
-          {urlShortener.links.map((urlItem, i) => (
+          {urlState.myLinks.map((urlItem, i) => (
             <LinkView
               key={urlItem.id}
               index={urlItem.id}
@@ -85,12 +76,26 @@ const App = () => {
               isEven={Boolean(i % 2)}
             />
           ))}
-          {loading || (
-            <Pagination
-              totalPages={urlShortener.totalPages}
-              onClick={onPaginate}
-            />
+        </div>
+        <div className="layout_right">
+          <span className="layout_right-title">Список ссылок</span>
+          {loading ? (
+            <Spinner size="small" />
+          ) : (
+            <>
+              {urlState.links.map((urlItem, i) => (
+                <LinkView
+                  key={urlItem.id}
+                  index={urlItem.id}
+                  url={urlItem.url}
+                  shortUrl={urlItem.short_url}
+                  clicks={urlItem.clicks}
+                  isEven={Boolean(i % 2)}
+                />
+              ))}
+            </>
           )}
+          <Pagination totalPages={urlState.totalPages} onClick={onPaginate} />
         </div>
       </main>
     </>

@@ -1,5 +1,6 @@
 .layout {
   @include flex(space-between, flex-start);
+  padding: 20px;
 
   &_left,
   &_right {
@@ -11,5 +12,9 @@
     display: block;
     margin-bottom: 12px;
     font-size: 18px;
+  }
+
+  &_link-form {
+    margin-bottom: 24px;
   }
 }

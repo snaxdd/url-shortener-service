@@ -4,7 +4,7 @@ interface ILinkViewProps {
   index: number;
   url: string;
   shortUrl: string;
-  transitions: number;
+  clicks: number;
   isEven?: boolean;
 }
 
@@ -18,10 +18,10 @@ const LinkView = (props: ILinkViewProps) => {
         {props.url}
       </a>
       <a className="link-view_short-url" href={props.url} title={props.url}>
-        {props.url}
+        {props.shortUrl}
       </a>
-      <span title={`${props.transitions}`} className="link-view_transitions">
-        {props.transitions}
+      <span title={`${props.clicks}`} className="link-view_clicks">
+        {props.clicks}
       </span>
     </div>
   );

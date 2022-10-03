@@ -4,6 +4,7 @@ interface IButtonProps {
   text: string;
   classNames?: string;
   isDisabled?: boolean;
+  onClick?: () => void;
 }
 
 const Button = (props: IButtonProps) => {
@@ -11,6 +12,7 @@ const Button = (props: IButtonProps) => {
     <button
       className={`button ${props.classNames || ""}`}
       disabled={props.isDisabled}
+      onClick={props.onClick}
     >
       {props.text}
     </button>

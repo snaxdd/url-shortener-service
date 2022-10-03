@@ -1,8 +1,12 @@
 .layout {
-  @include flex(flex-start, flex-start);
+  @include flex(space-between, flex-start);
 
   &_left,
   &_right {
+    max-width: calc(50% - 10px);
     flex: 1;
+  }
+
+  &_left {
   }
 }

@@ -43,77 +43,82 @@ const Pagination = (props: IPaginationProps) => {
     });
   };
 
+  if (props.totalPages <= 5) {
+    return (
+      <>
+        {Array.from(Array(props.totalPages).keys()).map((value, i, arr) => {
+          return (
+            <button
+              key={value}
+              data-index={value + buttonCounter}
+              data-last={i === arr.length - 1}
+              data-first={!i}
+              onClick={onClick}
+              className={`pagination_button ${
+                currentIndex === buttonCounter + value
+                  ? " pagination_button--active"
+                  : ""
+              }`}
+            >
+              <span className="pagination_button-number">
+                {value + buttonCounter}
+              </span>
+            </button>
+          );
+        })}
+      </>
+    );
+  }
+
   return (
     <div className="pagination">
-      {Array.from(Array(props.totalPages).keys()).map((value, i, arr) => {
-        console.log(value);
-        if (props.totalPages <= 5) {
-          return (
-            <button
-              key={value}
-              data-index={value + buttonCounter}
-              data-last={i === arr.length - 1}
-              data-first={!i}
-              onClick={onClick}
-              className={`pagination_button ${
-                currentIndex === buttonCounter + value
-                  ? " pagination_button--active"
-                  : ""
-              }`}
-            >
-              <span className="pagination_button-number">
-                {value + buttonCounter}
-              </span>
-            </button>
-          );
-        } else {
-          return (
-            <button
-              key={value}
-              data-index={value + buttonCounter}
-              data-last={i === arr.length - 1}
-              data-first={!i}
-              onClick={onClick}
-              className={`pagination_button ${
-                currentIndex === buttonCounter + value
-                  ? " pagination_button--active"
-                  : ""
-              }`}
-            >
-              <span className="pagination_button-number">
-                {value + buttonCounter}
-              </span>
-            </button>
-          );
-        }
+      {Array.from(Array(SHOW_BUTTONS).keys()).map((value, i, arr) => {
+        return (
+          <button
+            key={value}
+            data-index={value + buttonCounter}
+            data-last={i === arr.length - 1}
+            data-first={!i}
+            onClick={onClick}
+            className={`pagination_button ${
+              currentIndex === buttonCounter + value
+                ? " pagination_button--active"
+                : ""
+            }`}
+          >
+            <span className="pagination_button-number">
+              {value + buttonCounter}
+            </span>
+          </button>
+        );
       })}
-      {/*{currentIndex >= props.totalPages - SHOW_BUTTONS ? (*/}
-      {/*  <button*/}
-      {/*    className={`pagination_button ${*/}
-      {/*      currentIndex === props.totalPages - 1*/}
-      {/*        ? " pagination_button--active"*/}
-      {/*        : ""*/}
-      {/*    }`}*/}
-      {/*    data-index={props.totalPages - 1}*/}
-      {/*    onClick={onClick}*/}
-      {/*  >*/}
-      {/*    <span className="pagination_button-number">*/}
-      {/*      {props.totalPages - 1}*/}
-      {/*    </span>*/}
-      {/*  </button>*/}
-      {/*) : (*/}
-      {/*  <span className="pagination_spacer">...</span>*/}
-      {/*)}*/}
-      {/*<button*/}
-      {/*  className={`pagination_button pagination_button--last ${*/}
-      {/*    currentIndex === props.totalPages ? " pagination_button--active" : ""*/}
-      {/*  }`}*/}
-      {/*  data-index={props.totalPages}*/}
-      {/*  data-last-button={true}*/}
-      {/*  onClick={onClick}*/}
-      {/*>*/}
-      {/*  <span className="pagination_button-number">{props.totalPages}</span>*/}
-      {/*</button>*/}
+      {currentIndex >= props.totalPages - SHOW_BUTTONS ? (
+        <button
+          className={`pagination_button ${
+            currentIndex === props.totalPages - 1
+              ? " pagination_button--active"
+              : ""
+          }`}
+          data-index={props.totalPages - 1}
+          onClick={onClick}
+        >
+          <span className="pagination_button-number">
+            {props.totalPages - 1}
+          </span>
+        </button>
+      ) : (
+        <span className="pagination_spacer">...</span>
+      )}
+      <button
+        className={`pagination_button pagination_button--last ${
+          currentIndex === props.totalPages ? " pagination_button--active" : ""
+        }`}
+        data-index={props.totalPages}
+        data-last-button={true}
+        onClick={onClick}
+      >
+        <span className="pagination_button-number">{props.totalPages}</span>
+      </button>
     </div>
   );
 };

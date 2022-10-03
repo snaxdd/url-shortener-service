@@ -70,14 +70,15 @@ const App = () => {
           />
         </div>
         <div className="layout_right">
-          <span>Список ссылок</span>
-          {urlShortener.links.map((urlItem) => (
+          <span className="layout_right-title">Список ссылок</span>
+          {urlShortener.links.map((urlItem, i) => (
             <LinkView
               key={urlItem.id}
               index={urlItem.id}
               url={urlItem.url}
               shortUrl={urlItem.short_url}
               clicks={urlItem.clicks}
+              isEven={Boolean(i % 2)}
             />
           ))}
           <Pagination

@@ -17,7 +17,11 @@ const LinkView = (props: ILinkViewProps) => {
       <a className="link-view_url" href={props.url} title={props.url}>
         {props.url}
       </a>
-      <a className="link-view_short-url" href={props.url} title={props.url}>
+      <a
+        className="link-view_short-url"
+        href={props.shortUrl}
+        title={props.shortUrl}
+      >
         {props.shortUrl}
       </a>
       <span title={`${props.clicks}`} className="link-view_clicks">

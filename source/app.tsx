@@ -15,6 +15,7 @@ import { GET_SHORT_URLS } from "./graphql/url.query";
 import LinkView from "./components/LinkView";
 import { ShortUrl } from "./types/urls";
 import Pagination from "./components/Pagination";
+import Spinner from "./components/Spinner";
 
 const App = () => {
   const urlShortener = useAppSelector((state) => state.counter);
@@ -26,11 +27,11 @@ const App = () => {
     },
   });
 
-  useEffect(() => {
-    window.onbeforeunload = function () {
-      sessionStorage.setItem("href", window.location.href);
-    };
-  }, []);
+  // useEffect(() => {
+  //   window.onbeforeunload = function () {
+  //     sessionStorage.setItem("href", window.location.href);
+  //   };
+  // }, []);
 
   useEffect(() => {
     //dispatch(setError(error?.message));
@@ -47,8 +48,10 @@ const App = () => {
   }, [data]);
 
   const onInput = useCallback((event: FormEvent<HTMLInputElement>) => {
-    const value = event.currentTarget.value;
-    const error = validator.isURL(value) ? "" : "Введите корректный url";
+    const value: string = event.currentTarget.value;
+    const error: string = validator.isURL(value)
+      ? ""
+      : "Введите корректный url";
 
     dispatch(setUrl(value));
     dispatch(setError(error));
@@ -71,6 +74,7 @@ const App = () => {
         </div>
         <div className="layout_right">
           <span className="layout_right-title">Список ссылок</span>
+          {loading && <Spinner size="small" />}
           {urlShortener.links.map((urlItem, i) => (
             <LinkView
               key={urlItem.id}
@@ -81,10 +85,12 @@ const App = () => {
               isEven={Boolean(i % 2)}
             />
           ))}
-          <Pagination
-            totalPages={urlShortener.totalPages}
-            onClick={onPaginate}
-          />
+          {loading || (
+            <Pagination
+              totalPages={urlShortener.totalPages}
+              onClick={onPaginate}
+            />
+          )}
         </div>
       </main>
     </>

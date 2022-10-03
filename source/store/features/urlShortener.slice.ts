@@ -8,6 +8,7 @@ interface IState {
   totalPages: number;
   isLoading: boolean;
   links: ShortUrl[];
+  myLinks: ShortUrl[];
 }
 
 export const urlShortenerSlice = createSlice({
@@ -19,6 +20,7 @@ export const urlShortenerSlice = createSlice({
     totalPages: 1,
     isLoading: false,
     links: [],
+    myLinks: [],
   } as IState,
   reducers: {
     setUrl: (store, action: PayloadAction<string>) => {

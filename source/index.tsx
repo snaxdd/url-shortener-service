@@ -7,15 +7,16 @@ import store from "./store";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { GRAPHQL_URL } from "./constants/graphql";
 
-const app = document.getElementById("app");
-const root = ReactDOM.createRoot(app);
-const client = new ApolloClient({
+export const apolloClient = new ApolloClient({
   uri: GRAPHQL_URL,
   cache: new InMemoryCache(),
 });
 
+const app = document.getElementById("app");
+const root = ReactDOM.createRoot(app);
+
 root.render(
-  <ApolloProvider client={client}>
+  <ApolloProvider client={apolloClient}>
     <Provider store={store}>
       <App />
     </Provider>

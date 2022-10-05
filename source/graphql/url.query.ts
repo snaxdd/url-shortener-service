@@ -10,8 +10,14 @@ export const GET_SHORT_URLS = gql`
         clicks
       }
       paginatorInfo {
+        count
         currentPage
+        firstItem
+        hasMorePages
+        lastItem
         lastPage
+        perPage
+        total
       }
     }
   }

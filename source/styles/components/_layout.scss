@@ -6,6 +6,16 @@
   &_right {
     max-width: calc(50% - 10px);
     flex: 1;
+
+    @media screen and (max-width: 768px) {
+      @include max-width-100(100%);
+    }
+  }
+
+  &_left {
+    @media screen and (max-width: 768px) {
+      margin-bottom: 18px;
+    }
   }
 
   &_right-title {
@@ -16,5 +26,9 @@
 
   &_link-form {
     margin-bottom: 24px;
+  }
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
   }
 }

@@ -67,16 +67,21 @@ const App = () => {
             value={urlState.url}
             classNames="layout_link-form"
           />
-          {urlState.myLinks.map((urlItem, i) => (
-            <LinkView
-              key={urlItem.id}
-              index={urlItem.id}
-              url={urlItem.url}
-              shortUrl={urlItem.short_url}
-              clicks={Number(urlItem.clicks)}
-              isEven={Boolean(i % 2)}
-            />
-          ))}
+          <span className="layout_right-title">Мои ссылки</span>
+          {!urlState.myLinks.length ? (
+            <span>Список пуст...</span>
+          ) : (
+            urlState.myLinks.map((urlItem, i) => (
+              <LinkView
+                key={urlItem.id}
+                index={urlItem.id}
+                url={urlItem.url}
+                shortUrl={urlItem.short_url}
+                clicks={Number(urlItem.clicks)}
+                isEven={Boolean(i % 2)}
+              />
+            ))
+          )}
         </div>
         <div className="layout_right">
           <span className="layout_right-title">Список ссылок</span>

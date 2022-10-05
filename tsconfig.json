@@ -1,9 +1,8 @@
 {
   "exclude": [
     ".storybook",
-    "stories",
+    "stories"
   ],
-  "include": ["source/types/index.d.ts"],
   "compilerOptions": {
     "outDir": "./dist/",
     "noImplicitAny": true,
@@ -15,7 +14,8 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "typeRoots": [
-      "./source/types/index.d.ts",
+      "socket.d.ts",
+      "global.d.ts",
       "./node_modules/@types"
     ]
   }

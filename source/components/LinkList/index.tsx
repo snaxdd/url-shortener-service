@@ -1,17 +1,12 @@
 import React, { useState } from "react";
-import { IPaginatorInfo, ShortUrl } from "../../types/urls";
+import { ShortUrl } from "../../types/urls";
 import { useQuery } from "@apollo/client";
 import { GET_SHORT_URLS } from "../../graphql/url.query";
 import Spinner from "../Spinner";
 import LinkView from "../LinkView";
 import Pagination from "../Pagination";
 
-interface ILinkListProps {
-  links?: ShortUrl[];
-  pagination?: IPaginatorInfo;
-}
-
-const LinkList = (props: ILinkListProps) => {
+const LinkList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { loading, error, data } = useQuery(GET_SHORT_URLS, {
     variables: {

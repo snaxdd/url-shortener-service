@@ -19,6 +19,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.4",
+    "socket.io-client": "^2.5.0",
     "validator": "^13.7.0"
   },
   "devDependencies": {
@@ -35,6 +36,7 @@
     "@storybook/testing-library": "^0.0.13",
     "@svgr/webpack": "^6.3.1",
     "@types/react-dom": "^18.0.6",
+    "@types/socket.io-client": "^3.0.0",
     "@types/validator": "^13.7.7",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",

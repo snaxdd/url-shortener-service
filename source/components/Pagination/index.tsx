@@ -9,7 +9,6 @@ interface IPaginationProps {
 const SHOW_BUTTONS = 3;
 
 const Pagination = (props: IPaginationProps) => {
-  const [currentPage, setCurrentPage] = useState(props.currentPage);
   const [buttonCounter, setButtonCounter] = useState(1);
 
   const getValuesFromAttr = (event: MouseEvent<HTMLElement>) => ({
@@ -25,14 +24,13 @@ const Pagination = (props: IPaginationProps) => {
       getValuesFromAttr(event);
 
     props.onClick(selectedIndex);
-    setCurrentPage(selectedIndex);
 
     setButtonCounter((prevState) => {
       if (isFirst && buttonCounter !== 1) {
         return prevState - 1;
       }
 
-      if (isLast && !(currentPage >= props.totalPages - SHOW_BUTTONS)) {
+      if (isLast && !(props.currentPage >= props.totalPages - SHOW_BUTTONS)) {
         return prevState + 1;
       }
 
@@ -56,7 +54,7 @@ const Pagination = (props: IPaginationProps) => {
               data-first={!i}
               onClick={onClick}
               className={`pagination_button ${
-                currentPage === buttonCounter + value
+                props.currentPage === buttonCounter + value
                   ? " pagination_button--active"
                   : ""
               }`}
@@ -82,7 +80,7 @@ const Pagination = (props: IPaginationProps) => {
             data-first={!i}
             onClick={onClick}
             className={`pagination_button ${
-              currentPage === buttonCounter + value
+              props.currentPage === buttonCounter + value
                 ? " pagination_button--active"
                 : ""
             }`}
@@ -93,10 +91,10 @@ const Pagination = (props: IPaginationProps) => {
           </button>
         );
       })}
-      {currentPage >= props.totalPages - SHOW_BUTTONS ? (
+      {props.currentPage >= props.totalPages - SHOW_BUTTONS ? (
         <button
           className={`pagination_button ${
-            currentPage === props.totalPages - 1
+            props.currentPage === props.totalPages - 1
               ? " pagination_button--active"
               : ""
           }`}
@@ -112,7 +110,9 @@ const Pagination = (props: IPaginationProps) => {
       )}
       <button
         className={`pagination_button pagination_button--last ${
-          currentPage === props.totalPages ? " pagination_button--active" : ""
+          props.currentPage === props.totalPages
+            ? " pagination_button--active"
+            : ""
         }`}
         data-index={props.totalPages}
         data-last-button={true}

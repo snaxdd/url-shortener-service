@@ -1,11 +1,16 @@
-import React, { FormEvent, useCallback } from "react";
+import React, { FormEvent, useCallback, useEffect } from "react";
 import Header from "./components/Header";
 import LinkForm from "./components/LinkForm";
 import { useAppDispatch, useAppSelector } from "./hooks/redux";
-import { setError, setUrl } from "./store/features/url.slice";
+import { setError, setUrl, updateLinkClicks } from "./store/features/url.slice";
 import validator from "validator";
 import LinkView from "./components/LinkView";
 import LinkList from "./components/LinkList";
+import { NEW_CLICK_EVENT } from "./constants/wsEvents";
+import { SHORT_URL_CHANNEL } from "./constants/wsChannels";
+import { apolloClient } from "./index";
+import { ShortUrl } from "./types/urls";
+import { UPDATE_LINK_CLICKS } from "./graphql/url.query";
 
 const App = () => {
   const urlState = useAppSelector((state) => state.url);
@@ -19,6 +24,36 @@ const App = () => {
 
     dispatch(setUrl(value));
     dispatch(setError(error));
+  }, []);
+
+  const updateLinks = (event: any) => {
+    apolloClient.writeQuery({
+      query: UPDATE_LINK_CLICKS,
+      data: {
+        short_urls: {
+          __typename: "ShortUrl",
+          id: event.short_url.id,
+          clicks: event.short_url.clicks,
+        },
+      },
+      variables: {
+        id: event.short_url.id,
+      },
+    });
+  };
+
+  useEffect(() => {
+    window.Echo.channel(SHORT_URL_CHANNEL).listen(
+      NEW_CLICK_EVENT,
+      (event: any) => {
+        dispatch(updateLinkClicks(event.short_url));
+        updateLinks(event);
+      }
+    );
+
+    return () => {
+      window.Echo.leave(SHORT_URL_CHANNEL);
+    };
   }, []);
 
   return (
@@ -38,7 +73,7 @@ const App = () => {
               index={urlItem.id}
               url={urlItem.url}
               shortUrl={urlItem.short_url}
-              clicks={urlItem.clicks}
+              clicks={Number(urlItem.clicks)}
               isEven={Boolean(i % 2)}
             />
           ))}

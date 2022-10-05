@@ -1,7 +1,15 @@
+export {};
+
+declare global {
+  interface Window {
+    Echo: any;
+    io: any;
+  }
+}
+
 declare module "*.svg" {
-  import * as React from "react";
-  const ReactComponent: React.FunctionComponent<React.SVGProps<SVGSVGElement>>;
-  export default ReactComponent;
+  const content: string;
+  export default content;
 }
 
 declare module "*.jpg" {

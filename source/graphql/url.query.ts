@@ -10,15 +10,17 @@ export const GET_SHORT_URLS = gql`
         clicks
       }
       paginatorInfo {
-        count
-        currentPage
-        firstItem
-        hasMorePages
-        lastItem
         lastPage
-        perPage
-        total
       }
+    }
+  }
+`;
+
+export const UPDATE_LINK_CLICKS = gql`
+  query editLink($id: Int!) {
+    short_urls(id: $id) {
+      id
+      clicks
     }
   }
 `;

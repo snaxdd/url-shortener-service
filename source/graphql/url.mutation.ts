@@ -8,8 +8,6 @@ export const CREATE_SHORT_URL = gql`
         url
         short_url
         clicks
-        created_at
-        updated_at
       }
     }
   }

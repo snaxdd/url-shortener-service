@@ -1,10 +1,10 @@
-import React, { FormEvent, useCallback } from "react";
+import React, { FormEvent, useCallback, useEffect, useState } from "react";
 import Button from "../Button";
 import isEmpty from "validator/lib/isEmpty";
 import { useMutation } from "@apollo/client";
 import { CREATE_SHORT_URL } from "../../graphql/url.mutation";
 import { useAppDispatch } from "../../hooks/redux";
-import { setMyLink } from "../../store/features/url.slice";
+import { setError, setMyLink, setUrl } from "../../store/features/url.slice";
 
 interface ILinkForm {
   error?: string;
@@ -14,8 +14,9 @@ interface ILinkForm {
 }
 
 const LinkForm = (props: ILinkForm) => {
+  const [errMessage, setErrMessage] = useState(props.error);
   const dispatch = useAppDispatch();
-  const [createShortUrl, { loading }] = useMutation(CREATE_SHORT_URL);
+  const [createShortUrl, { loading, error }] = useMutation(CREATE_SHORT_URL);
 
   const onCreateUrl = useCallback(async () => {
     const result = await createShortUrl({
@@ -25,7 +26,16 @@ const LinkForm = (props: ILinkForm) => {
     });
 
     dispatch(setMyLink(result.data.shorten_url.short_url));
+    dispatch(setUrl(""));
   }, [props.value]);
+
+  useEffect(() => {
+    if (error) {
+      setErrMessage(error.message);
+    } else {
+      setErrMessage("");
+    }
+  }, [error]);
 
   return (
     <div className={`link-form ${props.classNames}`}>
@@ -41,10 +51,10 @@ const LinkForm = (props: ILinkForm) => {
           onClick={onCreateUrl}
           text="Сократить"
           classNames="link-form_button"
-          isDisabled={isEmpty(props.value) || !isEmpty(props.error)}
+          isDisabled={isEmpty(props.value) || !isEmpty(props.error) || loading}
         />
       </div>
-      {props.error && <span className="link-form_error">{props.error}</span>}
+      {errMessage && <span className="link-form_error">{errMessage}</span>}
     </div>
   );
 };

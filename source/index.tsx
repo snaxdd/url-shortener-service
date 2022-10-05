@@ -17,7 +17,7 @@ export const apolloClient = new ApolloClient({
 window.io = io;
 window.Echo = new Echo({
   broadcaster: "socket.io",
-  host: "http://test-task.profilancegroup-tech.com:6002",
+  host: "https://test-task.profilancegroup-tech.com:6002",
 });
 
 const app = document.getElementById("app");

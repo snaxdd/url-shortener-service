@@ -19,7 +19,7 @@ const LinkList = () => {
   };
 
   if (error) {
-    return <span>{error.message}</span>;
+    return <span className="error">{error.message}</span>;
   }
 
   return (

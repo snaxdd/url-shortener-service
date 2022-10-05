@@ -4,7 +4,7 @@ import isEmpty from "validator/lib/isEmpty";
 import { useMutation } from "@apollo/client";
 import { CREATE_SHORT_URL } from "../../graphql/url.mutation";
 import { useAppDispatch } from "../../hooks/redux";
-import { setError, setMyLink, setUrl } from "../../store/features/url.slice";
+import { setMyLink, setUrl } from "../../store/features/url.slice";
 
 interface ILinkForm {
   error?: string;
@@ -32,10 +32,12 @@ const LinkForm = (props: ILinkForm) => {
   useEffect(() => {
     if (error) {
       setErrMessage(error.message);
+    } else if (props.error) {
+      setErrMessage(props.error);
     } else {
       setErrMessage("");
     }
-  }, [error]);
+  }, [error, props.error]);
 
   return (
     <div className={`link-form ${props.classNames}`}>
@@ -54,7 +56,7 @@ const LinkForm = (props: ILinkForm) => {
           isDisabled={isEmpty(props.value) || !isEmpty(props.error) || loading}
         />
       </div>
-      {errMessage && <span className="link-form_error">{errMessage}</span>}
+      {errMessage && <span className="error">{errMessage}</span>}
     </div>
   );
 };

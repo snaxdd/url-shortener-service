@@ -11,7 +11,6 @@ import { SHORT_URL_CHANNEL } from "./constants/wsChannels";
 import { apolloClient } from "./index";
 import { ShortUrl } from "./types/urls";
 import { UPDATE_LINK_CLICKS } from "./graphql/url.query";
-import { Simulate } from "react-dom/test-utils";
 
 const App = () => {
   const urlState = useAppSelector((state) => state.url);
